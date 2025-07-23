@@ -1,0 +1,45 @@
+name: Build and Release Extension
+
+on:
+  push:
+    tags:
+      - '*'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install web-ext
+        run: npm install --global web-ext
+
+      - name: Build extension (zip)
+        run: |
+          mkdir -p web-ext-artifacts
+          web-ext build --artifacts-dir=web-ext-artifacts
+
+      - name: Get tag name
+        id: get_tag
+        run: echo "TAG_NAME=${GITHUB_REF#refs/tags/}" >> $GITHUB_ENV
+
+      - name: Find built zip
+        id: find_zip
+        run: |
+          ZIP_FILE=$(find web-ext-artifacts -name '*.zip' | head -n 1)
+          echo "ZIP_PATH=$ZIP_FILE" >> $GITHUB_ENV
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ env.TAG_NAME }}
+          name: Release ${{ env.TAG_NAME }}
+          files: ${{ env.ZIP_PATH }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
