@@ -1,0 +1,5 @@
+{
+  "description": {
+    "message": "A Firefox extension that gathers selected tasks from Azure DevOps to generate a beautiful changelog."
+  }
+}

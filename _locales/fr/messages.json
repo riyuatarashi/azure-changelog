@@ -1,0 +1,5 @@
+{
+  "description": {
+    "message": "Une extension Firefox qui récupère les tâches sélectionnées d'Azure DevOps pour générer un changelog élégant."
+  }
+}
