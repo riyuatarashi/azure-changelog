@@ -1,14 +1,15 @@
 {
-  "manifest_version": 3,
-  "name": "Azure changelog",
-  "version": "0.1.1",
-  "description": "A firefox extension that gather selected tasks from Azure DevOps to generate a beautiful changelog.",
-  "permissions": ["scripting", "activeTab", "clipboardWrite"],
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "author": "Moee",
   "background": {
     "scripts": ["background.js"]
   },
-  "action": {
-    "default_popup": "popup.html"
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "azure-changelog@moee.fr"
+    }
   },
   "content_scripts": [
     {
@@ -16,9 +17,15 @@
       "js": ["content.js"]
     }
   ],
-  "browser_specific_settings": {
-    "gecko": {
-      "id": "azure-changelog@moee.fr"
-    }
-  }
+  "default_locale": "fr",
+  "description": "__MSG_description__",
+  "icons": {
+    "32": "icons/icon-32.png",
+    "64": "icons/icon-64.png",
+    "128": "icons/icon-128.png"
+  },
+  "manifest_version": 3,
+  "name": "Azure changelog",
+  "permissions": ["scripting", "activeTab", "clipboardWrite"],
+  "version": "0.1.2"
 }
